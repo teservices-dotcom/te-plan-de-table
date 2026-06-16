@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invitation | T&E plan de table</title>
+<link rel="stylesheet" href="style.css">
+<style>
+body{background:var(--bg-light);min-height:100vh}
+.invite-page{max-width:520px;margin:0 auto;padding:100px 1.5rem 3rem}
+.invite-card{background:#fff;border-radius:20px;box-shadow:var(--shadow-lg);border:1px solid var(--border-warm);overflow:hidden}
+.invite-header{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;padding:2rem;text-align:center}
+.invite-header .event-emoji{font-size:2.5rem;margin-bottom:.75rem}
+.invite-header h1{font-size:1.35rem;font-weight:800}
+.invite-header p{font-size:.875rem;opacity:.85;margin-top:.4rem}
+.invite-body{padding:2rem}
+.invite-success{text-align:center;padding:2rem 1rem}
+.invite-success .success-icon{font-size:3rem;margin-bottom:1rem}
+.invite-success h2{font-size:1.2rem;font-weight:700;margin-bottom:.5rem}
+.invite-success p{font-size:.875rem;color:var(--text-muted);margin-bottom:1.5rem}
+.table-result{background:var(--primary-light);border:2px solid var(--primary);border-radius:12px;padding:1.25rem;text-align:center;margin:1rem 0}
+.table-result .t-label{font-size:.8rem;color:var(--primary-dark);font-weight:600}
+.table-result .t-name{font-size:1.75rem;font-weight:800;color:var(--primary)}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">
+    <div class="logo-icon">T</div>
+    T&E plan de table
+  </a>
+</nav>
+
+<div class="invite-page">
+  <!-- Loading -->
+  <div id="state-loading" style="text-align:center;padding:3rem">
+    <p style="color:var(--text-muted)">Chargement de l'invitation…</p>
+  </div>
+
+  <!-- Error -->
+  <div id="state-error" style="display:none">
+    <div class="alert alert-error">Lien d'invitation invalide ou expiré.</div>
+    <a href="index.html" class="btn btn-ghost btn-full" style="margin-top:1rem">Retour à l'accueil</a>
+  </div>
+
+  <!-- Already registered -->
+  <div id="state-already" style="display:none">
+    <div class="invite-card">
+      <div class="invite-header">
+        <div class="event-emoji">🎉</div>
+        <h1 id="ar-event-name"></h1>
+        <p id="ar-event-date"></p>
+      </div>
+      <div class="invite-body">
+        <div class="invite-success">
+          <div class="success-icon">✅</div>
+          <h2>Vous êtes déjà inscrit !</h2>
+          <p>Vos informations ont bien été enregistrées.</p>
+          <div id="ar-table" class="table-result" style="display:none">
+            <div class="t-label">Votre table</div>
+            <div class="t-name" id="ar-table-name"></div>
+          </div>
+          <div id="ar-pending" class="alert alert-info" style="display:none;margin-top:1rem">
+            ⏳ Votre table sera assignée prochainement par l'organisateur.
+          </div>
+          <a href="login.html" class="btn btn-primary btn-full" style="margin-top:1.5rem">Accéder à mon espace</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Register form -->
+  <div id="state-form" style="display:none">
+    <div class="invite-card">
+      <div class="invite-header">
+        <div class="event-emoji">🎉</div>
+        <h1 id="form-event-name"></h1>
+        <p id="form-event-date"></p>
+      </div>
+      <div class="invite-body">
+        <p style="font-size:.875rem;color:var(--text-muted);margin-bottom:1.5rem;text-align:center">
+          Vous êtes invité(e) à cet événement. Remplissez vos informations ci-dessous.
+        </p>
+        <div id="form-alert"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+          <div class="form-group"><label>Prénom *</label><input type="text" id="inv-firstname" placeholder="Marie"></div>
+          <div class="form-group"><label>Nom *</label><input type="text" id="inv-lastname" placeholder="Dupont"></div>
+        </div>
+        <div class="form-group"><label>Email *</label><input type="email" id="inv-email" placeholder="marie@exemple.com">
+          <div class="form-hint">Utilisez l'email avec lequel vous souhaitez créer votre compte</div>
+        </div>
+        <div class="form-group"><label>Mot de passe *</label><input type="password" id="inv-password" placeholder="Minimum 6 caractères">
+          <div class="form-hint">Pour accéder à votre espace invité</div>
+        </div>
+        <div id="menu-section" style="display:none">
+          <div class="form-group">
+            <label>Votre menu</label>
+            <select id="inv-menu">
+              <option value="">Choisir…</option>
+              <option value="viande">🥩 Viande</option>
+              <option value="poisson">🐟 Poisson</option>
+              <option value="vegetarien">🥗 Végétarien</option>
+              <option value="vegan">🌱 Vegan</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Allergies / régimes particuliers</label>
+            <input type="text" id="inv-allergies" placeholder="Sans gluten, intolérance lactose…">
+          </div>
+        </div>
+        <button class="btn btn-primary btn-full btn-lg" onclick="registerGuest()" id="inv-btn">
+          Confirmer ma présence
+        </button>
+        <p style="font-size:.78rem;color:var(--text-muted);text-align:center;margin-top:1rem">
+          Vous avez déjà un compte ? <a href="login.html" style="color:var(--primary);font-weight:600">Se connecter</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success after register -->
+  <div id="state-success" style="display:none">
+    <div class="invite-card">
+      <div class="invite-header">
+        <div class="event-emoji">🎊</div>
+        <h1 id="suc-event-name"></h1>
+        <p id="suc-event-date"></p>
+      </div>
+      <div class="invite-body">
+        <div class="invite-success">
+          <div class="success-icon">🎉</div>
+          <h2>Inscription confirmée !</h2>
+          <p>Bienvenue ! Votre présence a bien été enregistrée.</p>
+          <div class="alert alert-info" style="text-align:left;margin-top:1rem">
+            ⏳ L'organisateur vous assignera une table prochainement. Vous recevrez une notification dans votre espace.
+          </div>
+          <a href="login.html" class="btn btn-primary btn-full" style="margin-top:1.5rem">Accéder à mon espace invité</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { auth, db, createUserWithEmailAndPassword, signInWithEmailAndPassword, doc, getDoc, setDoc, addDoc, collection, getDocs, query, where, updateDoc } from './firebase.js';
+
+const params = new URLSearchParams(window.location.search);
+const eventId = params.get('event');
+let eventData = null;
+
+function show(state) {
+  ['loading','error','already','form','success'].forEach(s=>document.getElementById('state-'+s).style.display=s===state?'block':'none');
+}
+
+async function init() {
+  if (!eventId) { show('error'); return; }
+  try {
+    const snap = await getDoc(doc(db,'events',eventId));
+    if (!snap.exists()) { show('error'); return; }
+    eventData = snap.data();
+    const dateStr = formatDate(eventData.date);
+    const loc = eventData.location ? ' · 📍 '+eventData.location : '';
+
+    // Populate all state headers
+    document.getElementById('ar-event-name').textContent = eventData.name;
+    document.getElementById('ar-event-date').textContent = `📅 ${dateStr}${loc}`;
+    document.getElementById('form-event-name').textContent = eventData.name;
+    document.getElementById('form-event-date').textContent = `📅 ${dateStr}${loc}`;
+    document.getElementById('suc-event-name').textContent = eventData.name;
+    document.getElementById('suc-event-date').textContent = `📅 ${dateStr}${loc}`;
+
+    if (eventData.collectMenus) document.getElementById('menu-section').style.display='block';
+
+    // Check if current user already registered
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      const gSnap = await getDocs(query(collection(db,'events',eventId,'guests'), where('email','==',currentUser.email)));
+      if (!gSnap.empty) {
+        const gData = gSnap.docs[0].data();
+        if (gData.tableName) {
+          document.getElementById('ar-table').style.display='block';
+          document.getElementById('ar-table-name').textContent = gData.tableName;
+        } else {
+          document.getElementById('ar-pending').style.display='block';
+        }
+        show('already'); return;
+      }
+      // Pre-fill email if logged in
+      document.getElementById('inv-email').value = currentUser.email || '';
+    }
+    show('form');
+  } catch(e) { show('error'); }
+}
+
+window.registerGuest = async () => {
+  const firstname = document.getElementById('inv-firstname').value.trim();
+  const lastname = document.getElementById('inv-lastname').value.trim();
+  const email = document.getElementById('inv-email').value.trim();
+  const password = document.getElementById('inv-password').value;
+  const menu = document.getElementById('inv-menu')?.value || '';
+  const allergies = document.getElementById('inv-allergies')?.value.trim() || '';
+  const alertEl = document.getElementById('form-alert');
+  alertEl.innerHTML = '';
+
+  if (!firstname||!lastname||!email||!password) {
+    alertEl.innerHTML='<div class="alert alert-error">Veuillez remplir tous les champs obligatoires.</div>'; return;
+  }
+  if (password.length < 6) {
+    alertEl.innerHTML='<div class="alert alert-error">Le mot de passe doit faire au moins 6 caractères.</div>'; return;
+  }
+
+  const btn = document.getElementById('inv-btn');
+  btn.disabled=true; btn.textContent='Inscription…';
+
+  try {
+    // Create account
+    let uid;
+    try {
+      const cred = await createUserWithEmailAndPassword(auth, email, password);
+      uid = cred.user.uid;
+      await setDoc(doc(db,'users',uid),{name:`${firstname} ${lastname}`,email,role:'user',createdAt:new Date().toISOString()});
+    } catch(e) {
+      if (e.code === 'auth/email-already-in-use') {
+        // Try to sign in instead
+        const cred = await signInWithEmailAndPassword(auth, email, password);
+        uid = cred.user.uid;
+      } else throw e;
+    }
+
+    // Check not already registered
+    const existing = await getDocs(query(collection(db,'events',eventId,'guests'), where('email','==',email)));
+    if (!existing.empty) {
+      const gData = existing.docs[0].data();
+      if (gData.tableName) {
+        document.getElementById('ar-table').style.display='block';
+        document.getElementById('ar-table-name').textContent = gData.tableName;
+      } else {
+        document.getElementById('ar-pending').style.display='block';
+      }
+      show('already'); return;
+    }
+
+    // Add guest
+    await addDoc(collection(db,'events',eventId,'guests'),{
+      firstname,lastname,email,menu,allergies,tableId:null,tableName:null,
+      confirmed:true,userId:uid,createdAt:new Date().toISOString()
+    });
+    const evSnap = await getDoc(doc(db,'events',eventId));
+    const count = (evSnap.data().guestsCount||0)+1;
+    await updateDoc(doc(db,'events',eventId),{guestsCount:count});
+
+    show('success');
+  } catch(e) {
+    const msgs = {
+      'auth/email-already-in-use':'Cet email est déjà utilisé. Connectez-vous d\'abord.',
+      'auth/invalid-email':'Adresse email invalide.',
+      'auth/weak-password':'Mot de passe trop faible (minimum 6 caractères).',
+      'auth/wrong-password':'Mot de passe incorrect pour ce compte existant.',
+    };
+    alertEl.innerHTML=`<div class="alert alert-error">${msgs[e.code]||'Erreur : '+e.message}</div>`;
+    btn.disabled=false; btn.textContent='Confirmer ma présence';
+  }
+};
+
+function formatDate(d){if(!d)return'—';const[y,m,day]=d.split('-');return`${day}/${m}/${y}`;}
+
+init();
+</script>
+</body>
+</html>

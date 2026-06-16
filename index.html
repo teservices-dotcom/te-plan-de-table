@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan de table mariage & événements en ligne | T&E plan de table</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --violet:#c0916f;
+  --violet-dark:#a0714f;
+  --violet-light:#f9ede4;
+  --violet-mid:#d4a889;
+  --text:#2a1a10;
+  --text-muted:#6b7280;
+  --text-light:#9ca3af;
+  --bg:#fff;
+  --bg-light:#fdf8f5;
+  --bg-grey:#f3f4f6;
+  --border:#e5e7eb;
+  --radius:12px;
+}
+body{font-family:'Inter',sans-serif;color:var(--text);background:#fff;line-height:1.6}
+a{text-decoration:none;color:inherit}
+img{max-width:100%}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:#fff;border-bottom:1px solid var(--border);padding:0 2rem}
+.nav-inner{max-width:1200px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo img{height:32px}
+.nav-links{display:flex;align-items:center;gap:1.5rem;font-size:14px;color:var(--text-muted)}
+.nav-links a:hover{color:var(--violet)}
+.btn-connect{background:var(--violet);color:#fff;padding:8px 18px;border-radius:8px;font-size:14px;font-weight:500;transition:background .2s}
+.btn-connect:hover{background:var(--violet-dark);color:#fff}
+.lang{font-weight:500;color:var(--text);font-size:14px}
+
+/* HERO */
+.hero{padding:120px 2rem 80px;text-align:center;background:linear-gradient(180deg,#fdf6f1 0%,#fff 100%)}
+.hero-inner{max-width:800px;margin:0 auto}
+.hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;line-height:1.15;color:var(--text);margin-bottom:1.5rem}
+.hero h1 .highlight{color:var(--violet)}
+.hero p{font-size:1.15rem;color:var(--text-muted);margin-bottom:2.5rem}
+.hero-form{background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:1.5rem;max-width:560px;margin:0 auto 3rem;box-shadow:0 4px 24px rgba(192,145,111,.08)}
+.hero-form input{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;margin-bottom:.75rem;outline:none;font-family:inherit;color:var(--text)}
+.hero-form input:focus{border-color:var(--violet)}
+.btn-primary{width:100%;background:var(--violet);color:#fff;border:none;padding:12px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;transition:background .2s}
+.btn-primary:hover{background:var(--violet-dark)}
+.hero-img{margin-top:3rem;border-radius:20px;box-shadow:0 20px 60px rgba(192,145,111,.15);border:1px solid var(--border)}
+
+/* STATS */
+.stats{padding:3rem 2rem;background:#fff}
+.stats-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:center;gap:5rem;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-num{font-size:2rem;font-weight:800;color:var(--violet)}
+.stat-label{font-size:.85rem;color:var(--text-muted);margin-top:.25rem}
+
+/* SECTION BASE */
+section{padding:5rem 2rem}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-label{font-size:.8rem;font-weight:600;color:var(--violet);text-transform:uppercase;letter-spacing:.1em;margin-bottom:1rem}
+.section-title{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;line-height:1.2;margin-bottom:1rem}
+.section-subtitle{font-size:1rem;color:var(--text-muted);max-width:560px;line-height:1.7}
+
+/* PROBLEM */
+.problem{background:var(--bg-light)}
+.problem p{font-size:1.05rem;color:var(--text-muted);line-height:1.8;max-width:700px}
+.problem p+p{margin-top:1rem}
+.problem-highlight{font-style:italic;color:var(--text);font-weight:500;margin-top:1.5rem!important;font-size:1.1rem}
+
+/* STEPS */
+.steps{background:#fff}
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2rem;margin-top:3rem}
+.step-card{background:var(--bg-light);border-radius:var(--radius);padding:2rem;border:1px solid #f5e6dc}
+.step-num{width:40px;height:40px;background:var(--violet);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;margin-bottom:1.25rem}
+.step-card h3{font-size:1.1rem;font-weight:700;margin-bottom:.75rem}
+.step-card p{font-size:.95rem;color:var(--text-muted);line-height:1.7}
+
+/* ALGO */
+.algo{background:var(--bg-light)}
+.algo-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:3rem}
+.algo-features{list-style:none;display:flex;flex-direction:column;gap:1.25rem;margin-top:2rem}
+.algo-features li{display:flex;gap:1rem;font-size:.95rem;color:var(--text-muted);line-height:1.6}
+.algo-features li strong{color:var(--text)}
+.algo-dot{width:8px;height:8px;background:var(--violet);border-radius:50%;flex-shrink:0;margin-top:.45rem}
+.rules-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:1.5rem;box-shadow:0 4px 20px rgba(192,145,111,.07)}
+.rules-card p{font-size:.85rem;color:var(--text-muted);margin-bottom:1rem}
+.rule{display:flex;align-items:flex-start;gap:.75rem;padding:.75rem;border-radius:10px;margin-bottom:.75rem;font-size:.9rem}
+.rule.green{background:#f0fdf4;color:#166534}
+.rule.red{background:#fff1f2;color:#9f1239}
+.rule.blue{background:#eff6ff;color:#1e40af}
+.rule-icon{font-size:1.1rem}
+
+/* MENUS */
+.menus{background:#fff}
+.menus-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:3rem}
+.menu-demo{background:var(--bg-light);border-radius:16px;border:1px solid #f5e6dc;overflow:hidden}
+.menu-demo-top{padding:1.25rem;border-bottom:1px solid #f5e6dc}
+.menu-demo-top p{font-size:.8rem;color:var(--text-muted);margin-bottom:.75rem}
+.menu-choices{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.menu-choice{background:#fff;border:1px solid var(--border);border-radius:8px;padding:.5rem .75rem;font-size:.85rem;display:flex;align-items:center;gap:.5rem}
+.menu-choice.active{border-color:var(--violet);background:var(--violet-light);color:var(--violet-dark)}
+.menu-allergy{margin-top:.75rem;border:1px solid var(--border);border-radius:8px;padding:.5rem .75rem;font-size:.8rem;color:var(--text-light);background:#fff}
+.menu-demo-bottom{padding:1.25rem;background:#fff}
+.menu-demo-bottom p{font-size:.8rem;font-weight:600;color:var(--text);margin-bottom:.75rem}
+.menu-summary{display:flex;flex-direction:column;gap:.5rem}
+.menu-row{display:flex;justify-content:space-between;align-items:center;font-size:.85rem}
+.menu-row span:first-child{color:var(--text)}
+.menu-row span:last-child{color:var(--text-muted)}
+.menu-features{list-style:none;display:flex;flex-direction:column;gap:1.25rem;margin-top:2rem}
+.menu-features li{display:flex;gap:1rem;font-size:.95rem;color:var(--text-muted);line-height:1.6}
+.menu-features li strong{color:var(--text)}
+
+/* CARTONS */
+.cartons{background:var(--bg-light)}
+.cartons-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:3rem}
+.carton-preview{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1rem}
+.carton{border-radius:10px;padding:1rem;text-align:center;border:1px solid}
+.carton-name{font-size:.85rem;font-weight:700}
+.carton-surname{font-size:1.1rem;font-weight:800}
+.carton-table{font-size:.75rem;margin-top:.25rem;opacity:.7}
+.carton.gold{background:#fffbeb;border-color:#fcd34d;color:#92400e}
+.carton.rose{background:#fff1f5;border-color:#f9a8d4;color:#9d174d}
+.carton.green{background:#f0fdf4;border-color:#86efac;color:#166534}
+.carton.dark{background:#111;border-color:#374151;color:#f9fafb}
+.carton-stand{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:1rem;margin-top:1rem;text-align:center}
+.carton-stand p.label{font-size:.7rem;color:var(--text-muted);margin-bottom:.5rem}
+.carton-stand-preview{font-size:.85rem;font-weight:700;padding:.75rem;border:1px solid var(--border);border-radius:8px;background:var(--bg-light)}
+.carton-format{font-size:.7rem;color:var(--text-muted);margin-top:.5rem}
+
+/* PDF EXPORT */
+.pdf-section{background:#fff}
+.pdf-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;margin-top:3rem}
+.pdf-preview{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.pdf-header{background:#fdf6f1;padding:1rem 1.25rem;border-bottom:1px solid var(--border)}
+.pdf-filename{font-size:.8rem;color:var(--text-muted)}
+.pdf-title{font-size:.9rem;font-weight:700;text-align:center;padding:.75rem;border-bottom:1px solid var(--border);color:var(--text)}
+.pdf-section-label{font-size:.7rem;font-weight:600;color:var(--text-muted);padding:.5rem 1rem;background:var(--bg-light);border-bottom:1px solid var(--border)}
+.pdf-annuaire{padding:.75rem 1rem}
+.pdf-letter{font-size:.75rem;font-weight:700;color:var(--violet);padding:.25rem 0;margin-top:.25rem}
+.pdf-person{display:flex;justify-content:space-between;font-size:.8rem;padding:.2rem 0;border-bottom:1px solid #f3f4f6}
+.pdf-person span:last-child{color:var(--text-muted);font-size:.75rem}
+.pdf-footer{font-size:.65rem;color:var(--text-light);text-align:center;padding:.5rem;border-top:1px solid var(--border)}
+
+/* AI */
+.ai-section{background:var(--bg-light)}
+.ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:3rem}
+.ai-demo{background:#fff;border-radius:16px;border:1px solid var(--border);overflow:hidden;box-shadow:0 4px 20px rgba(192,145,111,.07)}
+.ai-demo-before{padding:1.25rem;border-bottom:1px solid var(--border)}
+.ai-demo-before p{font-size:.75rem;color:var(--text-muted);margin-bottom:.75rem}
+.handwriting{font-family:Georgia,serif;font-style:italic;font-size:.9rem;color:var(--text);line-height:1.9}
+.ai-analyzing{padding:.75rem 1.25rem;background:#fdf6f1;border-bottom:1px solid var(--border);font-size:.8rem;color:var(--violet);display:flex;align-items:center;gap:.5rem}
+.ai-demo-after{padding:1.25rem}
+.ai-demo-after p{font-size:.75rem;color:var(--text-muted);margin-bottom:.75rem}
+.ai-result{font-size:.9rem;color:var(--text);line-height:2}
+.ai-result span{display:flex;align-items:center;gap:.5rem}
+.ai-result .num{color:var(--violet);font-weight:600;font-size:.8rem;width:16px}
+.check{color:#10b981;font-weight:700}
+
+/* VIDEO */
+.video-section{background:#fff;text-align:center}
+.video-section .section-title{max-width:600px;margin:0 auto 2rem}
+.video-placeholder{background:var(--bg-light);border-radius:20px;border:1px solid var(--border);padding:5rem 2rem;max-width:700px;margin:0 auto 2rem;position:relative;overflow:hidden}
+.play-btn{width:70px;height:70px;background:var(--violet);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;cursor:pointer}
+.play-btn svg{width:28px;height:28px;fill:#fff;margin-left:4px}
+.video-placeholder p{color:var(--text-muted);font-size:.95rem}
+
+/* USE CASES */
+.use-cases{background:var(--bg-light)}
+.use-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.use-card{background:#fff;border-radius:var(--radius);padding:1.75rem;border:1px solid var(--border)}
+.use-icon{font-size:2rem;margin-bottom:1rem}
+.use-card h3{font-size:1rem;font-weight:700;margin-bottom:.5rem}
+.use-card p{font-size:.9rem;color:var(--text-muted)}
+
+/* TESTIMONIALS */
+.testimonials{background:#fff}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.testi-card{background:var(--bg-light);border-radius:var(--radius);padding:1.75rem;border:1px solid #f5e6dc}
+.stars{color:#f59e0b;font-size:1rem;letter-spacing:.1em;margin-bottom:1rem}
+.testi-text{font-size:.92rem;color:var(--text-muted);line-height:1.7;margin-bottom:1.5rem;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:.75rem}
+.testi-avatar{width:38px;height:38px;background:var(--violet);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;flex-shrink:0}
+.testi-name{font-size:.9rem;font-weight:700}
+.testi-role{font-size:.8rem;color:var(--text-muted)}
+
+/* PRICING */
+.pricing{background:var(--bg-light)}
+.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:3rem}
+.pricing-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;position:relative}
+.pricing-card.featured{border:2px solid var(--violet);box-shadow:0 8px 30px rgba(192,145,111,.12)}
+.pricing-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--violet);color:#fff;font-size:.75rem;font-weight:600;padding:4px 16px;border-radius:20px;white-space:nowrap}
+.pricing-badge.new{background:#10b981}
+.pricing-plan{font-size:.8rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem}
+.pricing-name{font-size:1.25rem;font-weight:800;margin-bottom:1rem}
+.pricing-price{margin-bottom:1.25rem}
+.pricing-amount{font-size:2.25rem;font-weight:800;color:var(--text)}
+.pricing-period{font-size:.85rem;color:var(--text-muted)}
+.pricing-desc{font-size:.85rem;color:var(--text-muted);margin-bottom:1.25rem;line-height:1.5}
+.pricing-features{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.75rem}
+.pricing-features li{font-size:.875rem;color:var(--text-muted);display:flex;gap:.6rem;align-items:flex-start}
+.pricing-features li::before{content:"✓";color:var(--violet);font-weight:700;flex-shrink:0}
+.btn-pricing{display:block;text-align:center;padding:10px;border-radius:8px;font-size:.9rem;font-weight:600;transition:all .2s;cursor:pointer}
+.btn-pricing.outline{border:1.5px solid var(--violet);color:var(--violet)}
+.btn-pricing.outline:hover{background:var(--violet-light)}
+.btn-pricing.filled{background:var(--violet);color:#fff;border:none}
+.btn-pricing.filled:hover{background:var(--violet-dark)}
+.pricing-note{font-size:.75rem;color:var(--text-muted);text-align:center;margin-top:.75rem}
+.pricing-toggle{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-bottom:2rem;font-size:.9rem}
+.toggle{background:var(--violet);color:#fff;border:none;border-radius:6px;padding:4px 12px;font-size:.8rem;cursor:pointer}
+.pricing-chorus{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.5rem;max-width:600px;margin:2rem auto 0;text-align:center;font-size:.9rem;color:var(--text-muted)}
+.pricing-chorus strong{color:var(--text)}
+
+/* FAQ */
+.faq{background:#fff}
+.faq-list{max-width:800px;margin:3rem auto 0;display:flex;flex-direction:column;gap:1px}
+.faq-item{border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:.75rem}
+.faq-q{padding:1.1rem 1.25rem;font-weight:600;font-size:.95rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:#fff}
+.faq-q:hover{background:var(--bg-light)}
+.faq-toggle{font-size:1.25rem;color:var(--violet);font-weight:300}
+.faq-a{padding:0 1.25rem 1.1rem;font-size:.9rem;color:var(--text-muted);line-height:1.7;display:none}
+.faq-item.open .faq-a{display:block}
+.faq-item.open .faq-toggle{transform:rotate(45deg);display:inline-block}
+
+/* CTA FINAL */
+.cta-final{background:linear-gradient(135deg,var(--violet) 0%,var(--violet-dark) 100%);padding:5rem 2rem;text-align:center;color:#fff}
+.cta-final h2{font-size:2rem;font-weight:800;margin-bottom:1rem}
+.cta-final p{font-size:1rem;opacity:.85;margin-bottom:2rem}
+.btn-white{background:#fff;color:var(--violet);padding:14px 32px;border-radius:10px;font-weight:700;font-size:1rem;display:inline-block;transition:all .2s}
+.btn-white:hover{background:#f3f0ff;color:var(--violet-dark)}
+
+/* TRUST */
+.trust{background:#fff;padding:2rem;border-top:1px solid var(--border)}
+.trust-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:center;gap:4rem;flex-wrap:wrap}
+.trust-item{text-align:center}
+.trust-icon{font-size:1.5rem;margin-bottom:.5rem}
+.trust-title{font-size:.9rem;font-weight:600;color:var(--text)}
+.trust-sub{font-size:.8rem;color:var(--text-muted)}
+
+/* FOOTER */
+footer{background:#2a1a10;color:#e5e7eb;padding:3rem 2rem}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:2rem}
+.footer-logo img{height:28px;margin-bottom:1rem}
+.footer-desc{font-size:.9rem;color:#9ca3af;line-height:1.7}
+.footer-col h4{font-size:.85rem;font-weight:700;color:#e5e7eb;margin-bottom:1rem;text-transform:uppercase;letter-spacing:.05em}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.footer-col ul li a{font-size:.85rem;color:#9ca3af;transition:color .2s}
+.footer-col ul li a:hover{color:#fff}
+.footer-bottom{border-top:1px solid #374151;padding-top:1.5rem;font-size:.8rem;color:#6b7280;text-align:center}
+.btn-outline-violet{display:inline-block;border:1.5px solid var(--violet);color:var(--violet);padding:10px 20px;border-radius:8px;font-size:.9rem;font-weight:600;margin-top:1.5rem;transition:all .2s}
+.btn-outline-violet:hover{background:var(--violet);color:#fff}
+
+@media(max-width:900px){
+  .algo-grid,.menus-grid,.cartons-grid,.pdf-grid,.ai-grid{grid-template-columns:1fr}
+  .pricing-grid{grid-template-columns:1fr 1fr}
+  .use-grid,.testi-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr}
+  .stats-inner{gap:2rem}
+}
+@media(max-width:600px){
+  .pricing-grid{grid-template-columns:1fr}
+  nav .nav-links .lang, nav .nav-links a.page-link{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <svg width="130" height="32" viewBox="0 0 130 32">
+        <circle cx="16" cy="16" r="12" fill="#c0916f"/>
+        <text x="16" y="21" text-anchor="middle" fill="white" font-family="Inter,sans-serif" font-weight="700" font-size="13">C</text>
+        <text x="38" y="22" fill="#2a1a10" font-family="Inter,sans-serif" font-weight="800" font-size="18">T&amp;E plan de table</text>
+      </svg>
+    </a>
+    <div class="nav-links">
+      <span class="lang">FR</span>
+      <a href="#" class="page-link">EN</a>
+      <a href="login.html" class="btn-connect">Se connecter</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Fini le <span class="highlight">casse-tête</span><br>du plan de table.</h1>
+    <p>Placement automatique, plan de salle interactif, export PDF.<br>Sans Excel, sans stress.</p>
+
+    <div class="hero-form">
+      <input type="text" placeholder="Nom de l'événement">
+      <input type="date" placeholder="Date de l'événement" style="color:#9ca3af">
+      <button class="btn-primary">Créer mon plan de table</button>
+    </div>
+
+    <img src="https://convive.fr/screens/plan-de-sallev2.png" alt="Interface de création de plan de salle T&amp;E plan de table" class="hero-img" onerror="this.style.display='none'">
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="stat-num">+ de 1 000</div>
+      <div class="stat-label">Événements créés</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">+ de 30 000</div>
+      <div class="stat-label">Invités placés</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4.9/5</div>
+      <div class="stat-label">Note moyenne</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="section-inner">
+    <h2 class="section-title">Organiser un plan de table ne devrait pas être un casse-tête</h2>
+    <p>Entre les changements de dernière minute, les affinités à respecter et les contraintes de salle, créer un plan de table devient vite un enfer sur papier ou Excel.</p>
+    <p>Une petite modification peut tout déséquilibrer… et vous faire perdre des heures.</p>
+    <p class="problem-highlight">T&amp;E plan de table a été conçu pour éliminer ces frictions.</p>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section class="steps">
+  <div class="section-inner">
+    <div class="section-label">Un processus en 3 étapes simples</div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>Créez votre événement</h3>
+        <p>Définissez le nom, le nombre de tables et la capacité. Obtenez instantanément votre lien d'invitation unique.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>Invitez & Placez</h3>
+        <p>Partagez le lien. Vos convives s'enregistrent, vous n'avez plus qu'à glisser-déposer les groupes sur les tables.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>Visualisez & Exportez</h3>
+        <p>Organisez votre salle virtuellement, ajustez les derniers détails et exportez votre annuaire en PDF en un clic.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALGO -->
+<section class="algo">
+  <div class="section-inner">
+    <div class="algo-grid">
+      <div>
+        <div class="section-label">La fonctionnalité idéale</div>
+        <h2 class="section-title">Laissez T&amp;E plan de table faire le travail</h2>
+        <p class="section-subtitle">Fini le puzzle interminable. Définissez simplement vos règles et laissez notre algorithme créer le plan de table optimisé pour vous en quelques secondes.</p>
+        <ul class="algo-features">
+          <li><span class="algo-dot"></span><div><strong>Définissez des catégories :</strong> Regroupez vos invités par "Famille", "Amis", "Collègues" et assignez-leur une couleur.</div></li>
+          <li><span class="algo-dot"></span><div><strong>Ajoutez des contraintes sociales :</strong> Assurez-vous que certaines personnes sont assises ensemble, et que d'autres sont à des tables différentes.</div></li>
+          <li><span class="algo-dot"></span><div><strong>Lancez le placement :</strong> Cliquez sur un bouton et regardez la magie opérer.</div></li>
+        </ul>
+      </div>
+      <div>
+        <div class="rules-card">
+          <p style="font-size:.8rem;font-weight:600;color:var(--text-muted);margin-bottom:1rem">Définissez vos règles, par exemple :</p>
+          <div class="rule green">
+            <span class="rule-icon">😊</span>
+            <span><strong>Famille Dupont</strong> doit être avec <strong>Famille Martin</strong></span>
+          </div>
+          <div class="rule red">
+            <span class="rule-icon">😠</span>
+            <span><strong>Tatie Danielle</strong> NE doit PAS être avec <strong>Jean-Pierre</strong></span>
+          </div>
+          <div class="rule blue">
+            <span class="rule-icon">🤝</span>
+            <span><strong>Collègues Projet X</strong> doivent être ensemble</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENUS -->
+<section class="menus">
+  <div class="section-inner">
+    <div class="menus-grid">
+      <div class="menu-demo">
+        <div class="menu-demo-top">
+          <p style="font-size:.75rem;font-weight:600;color:var(--text-muted)">Ce que vos convives renseignent</p>
+          <div class="menu-choices">
+            <div class="menu-choice active">🥩 Viande</div>
+            <div class="menu-choice">🐟 Poisson</div>
+            <div class="menu-choice">🥗 Végétarien</div>
+            <div class="menu-choice">🌱 Vegan</div>
+          </div>
+          <div class="menu-allergy">Allergies ou régimes particuliers &nbsp; Ex : sans gluten, intolérance lactose…</div>
+        </div>
+        <div class="menu-demo-bottom">
+          <p>Résumé automatique dans votre PDF</p>
+          <div class="menu-summary">
+            <div class="menu-row"><span>🥩 Viande</span><span>24 pers.</span></div>
+            <div class="menu-row"><span>🐟 Poisson</span><span>14 pers.</span></div>
+            <div class="menu-row"><span>🥗 Végétarien</span><span>8 pers.</span></div>
+            <div class="menu-row"><span>🌱 Vegan</span><span>3 pers.</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Gestion des menus</div>
+        <h2 class="section-title">Finies les feuilles Excel pour le traiteur</h2>
+        <p class="section-subtitle">Activez la collecte des préférences alimentaires sur votre page d'invitation. Vos convives choisissent leur menu au moment de leur RSVP, vous ne gérez plus rien.</p>
+        <ul class="menu-features">
+          <li><span class="algo-dot"></span><div><strong>Choix du menu :</strong> Viande, poisson, végétarien ou vegan est sélectionné par chaque invité lors de son inscription.</div></li>
+          <li><span class="algo-dot"></span><div><strong>Allergies & régimes :</strong> Un champ libre permet de signaler gluten, lactose ou tout autre régime particulier.</div></li>
+          <li><span class="algo-dot"></span><div><strong>Transmis au traiteur en un clic :</strong> Le PDF de l'événement inclut la répartition complète des menus, table par table.</div></li>
+        </ul>
+        <a href="#" class="btn-outline-violet">Je commence mon plan de table</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARTONS -->
+<section class="cartons">
+  <div class="section-inner">
+    <div class="cartons-grid">
+      <div>
+        <div class="section-label">Cartons de table</div>
+        <h2 class="section-title">Des cartons de table prêts à imprimer</h2>
+        <p class="section-subtitle">Générez en un clic les cartons de table personnalisés pour chaque invité. Chaque carton indique le nom et la table assignée, il ne reste plus qu'à imprimer.</p>
+        <ul class="menu-features">
+          <li><span class="algo-dot"></span><div><strong>Personnalisés automatiquement :</strong> Nom et numéro de table générés depuis votre plan, sans ressaisie.</div></li>
+          <li><span class="algo-dot"></span><div><strong>Format prêt à imprimer :</strong> Exportez en PDF, découpez et posez sur les tables.</div></li>
+          <li><span class="algo-dot"></span><div><strong>Mis à jour en temps réel :</strong> Un changement de placement ? Les cartons se mettent à jour instantanément.</div></li>
+        </ul>
+        <a href="#" class="btn-outline-violet">Je commence mon plan de table</a>
+      </div>
+      <div>
+        <div class="carton-preview">
+          <div class="carton gold">
+            <div class="carton-name">Sophie</div>
+            <div class="carton-surname">MARTIN</div>
+            <div class="carton-table">Table des Roses</div>
+            <div style="font-size:.65rem;margin-top:.4rem;opacity:.6">Élégant doré</div>
+          </div>
+          <div class="carton rose">
+            <div class="carton-name">Sophie</div>
+            <div class="carton-surname">MARTIN</div>
+            <div class="carton-table">Table des Roses</div>
+            <div style="font-size:.65rem;margin-top:.4rem;opacity:.6">Rose romantique</div>
+          </div>
+          <div class="carton green">
+            <div class="carton-name">Sophie</div>
+            <div class="carton-surname">MARTIN</div>
+            <div class="carton-table">Table des Roses</div>
+            <div style="font-size:.65rem;margin-top:.4rem;opacity:.6">Vert nature</div>
+          </div>
+          <div class="carton dark">
+            <div class="carton-name">Sophie</div>
+            <div class="carton-surname">MARTIN</div>
+            <div class="carton-table">Table des Roses</div>
+            <div style="font-size:.65rem;margin-top:.4rem;opacity:.6">Minimaliste noir</div>
+          </div>
+        </div>
+        <div class="carton-stand">
+          <p class="label">Aperçu chevalet posé sur table :</p>
+          <div class="carton-stand-preview">Sophie MARTIN &nbsp;·&nbsp; Table des Roses</div>
+          <div class="carton-format">Format A6 · à plier en deux · tient debout seul</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PDF -->
+<section class="pdf-section">
+  <div class="section-inner">
+    <div class="pdf-grid">
+      <div>
+        <div class="section-label">Export PDF</div>
+        <h2 class="section-title">Un livret complet, prêt à imprimer</h2>
+        <p class="section-subtitle">En un clic, T&amp;E plan de table génère un livret PDF professionnel : plan de salle visuel, annuaire des invités classé par ordre alphabétique avec leur table assignée, et récapitulatif des menus par table pour votre traiteur.</p>
+        <ul class="menu-features">
+          <li><span class="algo-dot"></span><div><strong>Plan de salle :</strong> vue d'ensemble imprimable, chaque invité à sa place.</div></li>
+          <li><span class="algo-dot"></span><div><strong>Annuaire alphabétique :</strong> nom, prénom et table de chaque invité — idéal à l'entrée de la salle.</div></li>
+          <li><span class="algo-dot"></span><div><strong>Récap traiteur :</strong> viandes, poissons, végétariens et allergies, table par table.</div></li>
+        </ul>
+        <a href="#" class="btn-outline-violet">Je commence mon plan de table</a>
+      </div>
+      <div class="pdf-preview">
+        <div class="pdf-header">
+          <div class="pdf-filename">📄 livret_mariage_claire_thomas.pdf</div>
+        </div>
+        <div class="pdf-title">MARIAGE CLAIRE &amp; THOMAS</div>
+        <div class="pdf-section-label">Annuaire des invités &nbsp;—&nbsp; Classement alphabétique · table assignée</div>
+        <div class="pdf-annuaire">
+          <div class="pdf-letter">A</div>
+          <div class="pdf-person"><span>Arnaud Sophie</span><span>Table des Roses</span></div>
+          <div class="pdf-person"><span>Aubert Marc</span><span>Table Pivoine</span></div>
+          <div class="pdf-letter">B</div>
+          <div class="pdf-person"><span>Bernard Claire</span><span>Table Jasmin</span></div>
+          <div class="pdf-person"><span>Blanc Éric</span><span>Table des Roses</span></div>
+          <div class="pdf-person"><span>Bonnet Julie</span><span>Table Pivoine</span></div>
+          <div class="pdf-letter">C</div>
+          <div class="pdf-person"><span>Chevalier Luc</span><span>Table Lilas</span></div>
+          <div class="pdf-letter">D</div>
+          <div class="pdf-person"><span>Dupont Isabelle</span><span>Table Jasmin</span></div>
+          <div class="pdf-person"><span>Durant Paul</span><span>Table Lilas</span></div>
+          <div class="pdf-letter">M</div>
+          <div class="pdf-person"><span>Martin Jean</span><span>Table des Roses</span></div>
+          <div class="pdf-person"><span>Moreau Anne</span><span>Table Pivoine</span></div>
+        </div>
+        <div class="pdf-footer">Livret généré par T&amp;E plan de table — 14 juin 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI -->
+<section class="ai-section">
+  <div class="section-inner">
+    <div class="ai-grid">
+      <div>
+        <div class="section-label">Magie de l'IA</div>
+        <h2 class="section-title">Photographiez votre liste manuscrite, on s'occupe du reste</h2>
+        <p class="section-subtitle">Vous avez noté vos invités à la main sur un bout de papier ? Prenez-le en photo depuis votre téléphone ou votre ordinateur. Notre IA lit la liste, reconnaît les prénoms et noms, et les ajoute automatiquement à votre plan de table en quelques secondes.</p>
+        <ul class="menu-features">
+          <li><span class="algo-dot"></span><div><strong>Zéro saisie manuelle :</strong> photographiez ou déposez l'image, les noms apparaissent instantanément.</div></li>
+          <li><span class="algo-dot"></span><div><strong>Détection intelligente :</strong> l'IA reconnaît les écritures, corrige les fautes de frappe courantes et structure la liste.</div></li>
+          <li><span class="algo-dot"></span><div><strong>Vérification en un coup d'œil :</strong> relisez la liste extraite et corrigez si besoin avant de valider.</div></li>
+        </ul>
+        <a href="#" class="btn-outline-violet">Essayer maintenant</a>
+      </div>
+      <div class="ai-demo">
+        <div class="ai-demo-before">
+          <p>📷 Liste photographiée</p>
+          <div class="handwriting">
+            1. Marie Dupont<br>
+            2. Jean-Luc Martin<br>
+            3. Sophie &amp; Pierre<br>
+            4. Tante Renée<br>
+            5. Famille Garnier
+          </div>
+        </div>
+        <div class="ai-analyzing">
+          <span style="width:8px;height:8px;background:var(--violet);border-radius:50%;animation:pulse 1.5s infinite"></span>
+          Analyse en cours…
+        </div>
+        <div class="ai-demo-after">
+          <p style="font-size:.75rem;font-weight:600;color:#10b981">✓ 5 invités détectés</p>
+          <div class="ai-result">
+            <span><span class="num">1</span> Marie Dupont</span>
+            <span><span class="num">2</span> Jean-Luc Martin</span>
+            <span><span class="num">3</span> Sophie &amp; Pierre</span>
+            <span><span class="num">4</span> Tante Renée</span>
+            <span><span class="num">5</span> Famille Garnier</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section class="video-section">
+  <div class="section-inner">
+    <h2 class="section-title">Voyez comment organiser votre événement en moins de 1 minute !</h2>
+    <div class="video-placeholder">
+      <div class="play-btn">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      <p>Découvrez en moins de 1 minute comment créer un plan de table et ajouter vos invités facilement.</p>
+    </div>
+    <a href="#" class="btn-outline-violet">Crée ton événement maintenant</a>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="use-cases">
+  <div class="section-inner">
+    <h2 class="section-title">Pensé pour tous vos événements</h2>
+    <div class="use-grid">
+      <div class="use-card">
+        <div class="use-icon">💍</div>
+        <h3>Mariages</h3>
+        <p>Gérez familles et amis sans tensions inutiles.</p>
+      </div>
+      <div class="use-card">
+        <div class="use-icon">💼</div>
+        <h3>Événements professionnels</h3>
+        <p>Dîners, séminaires, conférences.</p>
+      </div>
+      <div class="use-card">
+        <div class="use-icon">🎉</div>
+        <h3>Événements privés</h3>
+        <p>Anniversaires, grandes tablées, repas de famille.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-inner">
+    <h2 class="section-title">Ils ont gagné du temps (et de la sérénité)</h2>
+    <p class="section-subtitle" style="margin-bottom:0">Le plan de table était leur cauchemar, c'est devenu une formalité.</p>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"On avait commencé sur Excel, mais c'est vite devenu illisible. C'est surtout le fait de pouvoir déplacer les tables et voir le rendu visuel qui nous a aidés. Simple et efficace pour nos 90 invités, on a plié ça en une soirée."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
+          <div>
+            <div class="testi-name">Sarah &amp; Marc</div>
+            <div class="testi-role">Mariage</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"J'ai utilisé le site pour les 40 ans surprise de ma femme. Le vrai défi c'était de mélanger les potes du lycée et les collègues de boulot. La vue graphique aide super bien à visualiser l'ambiance des tables. ça valait le coup."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">T</div>
+          <div>
+            <div class="testi-name">Thomas D.</div>
+            <div class="testi-role">Anniversaire</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"Utilisé pour notre dîner de fin d'année. J'ai surtout apprécié de pouvoir changer les places rapidement quand deux collègues se sont désistés le matin même, sans devoir tout recommencer. Ça fait le job."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">E</div>
+          <div>
+            <div class="testi-name">Élodie M.</div>
+            <div class="testi-role">Dîner d'équipe</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-inner">
+    <h2 class="section-title" style="text-align:center">Une offre pour chaque profil</h2>
+    <p class="section-subtitle" style="text-align:center;margin:0 auto 2rem">Particulier pour votre mariage ou professionnel de l'événementiel, commencez gratuitement.</p>
+    <div class="pricing-toggle">
+      <span>Mensuel</span>
+      <button class="toggle">Annuel</button>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-plan">Pour les particuliers</div>
+        <div class="pricing-name">Découverte</div>
+        <div class="pricing-price">
+          <span class="pricing-amount">0€</span><br>
+          <span class="pricing-period">gratuit pour toujours</span>
+        </div>
+        <div class="pricing-desc">Pour tester ou gérer un petit événement.</div>
+        <ul class="pricing-features">
+          <li>1 événement</li>
+          <li>40 invités maximum</li>
+          <li>Import CSV</li>
+        </ul>
+        <a href="#" class="btn-pricing outline">Commencer gratuitement</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Le plus choisi</div>
+        <div class="pricing-plan">Paiement unique</div>
+        <div class="pricing-name">Événement Unique</div>
+        <div class="pricing-price">
+          <span class="pricing-amount">19€</span><br>
+          <span class="pricing-period">paiement unique</span>
+        </div>
+        <div class="pricing-desc">Parfait pour un mariage ou un grand événement.</div>
+        <ul class="pricing-features">
+          <li>Invités illimités</li>
+          <li>Plan de salle interactif</li>
+          <li>Placement automatique</li>
+          <li>Préférences alimentaires</li>
+          <li>Cartons de table imprimables</li>
+          <li>Export PDF complet</li>
+        </ul>
+        <a href="#" class="btn-pricing filled">Choisir cette offre</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-plan">Pour les Wedding Planners</div>
+        <div class="pricing-name">WP Pro</div>
+        <div class="pricing-price">
+          <span class="pricing-amount">9€</span><br>
+          <span class="pricing-period">par mois · facturé 108€/an</span>
+        </div>
+        <div class="pricing-desc">Gérez tous vos événements clients sans limite.</div>
+        <ul class="pricing-features">
+          <li>Événements illimités</li>
+          <li>Invités illimités</li>
+          <li>Toutes les fonctionnalités</li>
+          <li>Support prioritaire</li>
+          <li>Espace client mariés</li>
+        </ul>
+        <a href="#" class="btn-pricing outline">Devenir Pro</a>
+        <p class="pricing-note">7 jours gratuits, sans engagement</p>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-badge new">Nouveau</div>
+        <div class="pricing-plan">Pour les Wedding Planners</div>
+        <div class="pricing-name">Studio Pro</div>
+        <div class="pricing-price">
+          <span class="pricing-amount">29€</span><br>
+          <span class="pricing-period">par mois · facturé 348€/an</span>
+        </div>
+        <div class="pricing-desc">Offrez à vos clients un espace dédié pour gérer leurs invités.</div>
+        <ul class="pricing-features">
+          <li>Tout du plan WP Pro</li>
+          <li>Espace client pour les mariés</li>
+          <li>Lien magique par événement</li>
+          <li>Vos clients exportent leur PDF</li>
+        </ul>
+        <a href="#" class="btn-pricing outline">Choisir Studio Pro</a>
+        <p class="pricing-note">7 jours gratuits, sans engagement</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:1.5rem;font-size:.9rem;color:var(--text-muted)">
+      Vous êtes wedding planner professionnel ? <a href="#" style="color:var(--violet);font-weight:600">Découvrez notre offre dédiée →</a>
+    </div>
+    <div class="pricing-chorus">
+      <strong>Vous êtes une administration publique ?</strong><br>
+      T&amp;E plan de table est compatible avec les paiements par mandat administratif via le portail <strong>Chorus Pro</strong>. <a href="mailto:contact@convive.fr" style="color:var(--violet)">Contactez-nous pour mettre en place votre abonnement.</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="section-inner">
+    <h2 class="section-title" style="text-align:center">Questions fréquentes</h2>
+    <div class="faq-list">
+      <div class="faq-item open">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Comment créer un plan de table avec T&amp;E plan de table ?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">Créez votre événement, définissez le nombre de tables et leur capacité, puis glissez-déposez vos invités. Un lien d'invitation unique est généré pour que vos convives s'enregistrent eux-mêmes.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          T&amp;E plan de table est-il gratuit ?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">Oui, T&amp;E plan de table propose une offre Découverte gratuite pour toujours : 1 événement et jusqu'à 40 invités. L'offre Événement Unique (19€ paiement unique) débloque les invités illimités et toutes les fonctionnalités.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Puis-je exporter mon plan de table en PDF ?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">Oui, T&amp;E plan de table permet d'exporter le plan de salle, l'annuaire des invités et les préférences alimentaires en PDF en un clic, prêt à imprimer ou à transmettre à votre traiteur.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          T&amp;E plan de table fonctionne-t-il pour les wedding planners professionnels ?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">Oui, l'offre WP Pro (9€/mois) permet de gérer des événements illimités pour tous vos clients, avec un espace client dédié pour les mariés via l'offre Studio Pro (29€/mois).</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Qu'est-ce que T&amp;E plan de table ?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">T&amp;E plan de table est un outil en ligne qui permet de créer facilement des plans de table pour des mariages et événements. Il propose un placement automatique des invités basé sur des règles de proximité ou d'éloignement, un éditeur visuel interactif et un export PDF.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          T&amp;E plan de table gère-t-il les préférences alimentaires des invités ?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">Oui, T&amp;E plan de table permet d'enregistrer les préférences et régimes alimentaires de chaque invité (végétarien, vegan, sans gluten, allergies, etc.) afin de faciliter la coordination avec le traiteur.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<div class="trust">
+  <div class="trust-inner">
+    <div class="trust-item">
+      <div class="trust-icon">🔒</div>
+      <div class="trust-title">Paiements Sécurisés</div>
+      <div class="trust-sub">via notre partenaire Stripe</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">💬</div>
+      <div class="trust-title">Support Réactif</div>
+      <div class="trust-sub">Une question ? Nous sommes là pour vous.</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🛡️</div>
+      <div class="trust-title">Données Protégées</div>
+      <div class="trust-sub">Conformité RGPD, vos données sont en sécurité.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <h2>Prêt à organiser votre événement sans stress ?</h2>
+  <p>Devenez l'organisateur serein et efficace que vous rêvez d'être.</p>
+  <a href="login.html" class="btn-white">Créer mon premier plan de table</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <svg width="120" height="28" viewBox="0 0 120 28">
+            <circle cx="14" cy="14" r="10" fill="#c0916f"/>
+            <text x="14" y="19" text-anchor="middle" fill="white" font-family="Inter,sans-serif" font-weight="700" font-size="11">C</text>
+            <text x="32" y="20" fill="#e5e7eb" font-family="Inter,sans-serif" font-weight="800" font-size="16">T&amp;E plan de table</text>
+          </svg>
+        </div>
+        <p class="footer-desc">Simplifiez l'organisation de vos plans de table.<br>De la petite réunion au grand mariage.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#">Fonctionnalités</a></li>
+          <li><a href="#">Tarifs</a></li>
+          <li><a href="#">S'inscrire</a></li>
+          <li><a href="#">Plan de table mariage</a></li>
+          <li><a href="#">Plan de table anniversaire</a></li>
+          <li><a href="#">Logiciel wedding planner</a></li>
+          <li><a href="#">Blog conseils mariage</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Légal</h4>
+        <ul>
+          <li><a href="#">Mentions Légales</a></li>
+          <li><a href="#">Conditions d'Utilisation</a></li>
+          <li><a href="#">Politique de Confidentialité</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 T&amp;E plan de table. Tous droits réservés.</div>
+  </div>
+</footer>
+
+<style>
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+</style>
+<script>
+function toggleFaq(el){
+  const item=el.closest('.faq-item');
+  item.classList.toggle('open');
+}
+</script>
+</body>
+</html>
