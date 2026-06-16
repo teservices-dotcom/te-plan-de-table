@@ -84,14 +84,7 @@ body{background:var(--bg-light);min-height:100vh;display:flex;flex-direction:col
           <input type="password" id="reg-password" placeholder="Minimum 6 caractères">
           <div class="form-hint">Au moins 6 caractères</div>
         </div>
-        <div class="form-group">
-          <label>Rôle</label>
-          <select id="reg-role">
-            <option value="admin">Administrateur (organisateur)</option>
-            <option value="user">Invité</option>
-          </select>
-          <div class="form-hint">Choisissez "Administrateur" si vous organisez des événements</div>
-        </div>
+        <input type="hidden" id="reg-role" value="user">
         <button class="btn btn-primary btn-full btn-lg" onclick="register()" id="register-btn">
           Créer mon compte
         </button>
